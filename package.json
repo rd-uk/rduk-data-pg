@@ -1,6 +1,6 @@
 {
   "name": "@rduk/data-pg",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "PostgreSQL Data Provider implementation for rduk-data",
   "engines": {
     "node": ">=6.4.0"
