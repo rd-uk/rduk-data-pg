@@ -22,89 +22,94 @@
  * SOFTWARE.
  */
 
-'use strict';
+ /* eslint-env jasmine */
 
-const errors = require('@rduk/errors');
-const PostgreSQLConnectionInfo = require('../lib/connectionInfo');
+'use strict'
 
-describe('connection', function() {
-    describe('instantion', function() {
-        describe('without username', function() {
-            it('should throw a ConfigurationError', function() {
-                expect(function() {
-                  try {
-                      new PostgreSQLConnectionInfo();
-                  } catch(err) {
-                      expect(err.message).toBe('PostgreSQL configuration: user missing.');
-                      throw err;
-                  }
-                }).toThrowError(errors.ConfigurationError);
-            });
-        });
+const errors = require('@rduk/errors')
+const PostgreSQLConnectionInfo = require('../lib/connectionInfo')
 
-        describe('without password', function() {
-            it('should throw a ConfigurationError', function() {
-                expect(function() {
-                    try {
-                        new PostgreSQLConnectionInfo({
-                            user: 'dbuser'
-                        });
-                    } catch(err) {
-                        expect(err.message).toBe('PostgreSQL configuration: password missing.');
-                        throw err;
-                    }
-                }).toThrowError(errors.ConfigurationError);
-            });
-        });
+describe('connection', function () {
+  describe('instantion', function () {
+    describe('without username', function () {
+      it('should throw a ConfigurationError', function () {
+        expect(function () {
+          try {
+            let conn = new PostgreSQLConnectionInfo()
+            conn.test()
+          } catch (err) {
+            expect(err.message).toBe('PostgreSQL configuration: user missing.')
+            throw err
+          }
+        }).toThrowError(errors.ConfigurationError)
+      })
+    })
 
-        describe('without database', function() {
-            it('should throw a ConfigurationError', function() {
-                expect(function() {
-                    try {
-                        new PostgreSQLConnectionInfo({
-                            user: 'dbuser',
-                            password: 'azerty'
-                        });
-                    } catch(err) {
-                        expect(err.message).toBe('PostgreSQL configuration: database missing.');
-                        throw err;
-                    }
-                }).toThrowError(errors.ConfigurationError);
-            });
-        });
+    describe('without password', function () {
+      it('should throw a ConfigurationError', function () {
+        expect(function () {
+          try {
+            let conn = new PostgreSQLConnectionInfo({
+              user: 'dbuser'
+            })
+            conn.test()
+          } catch (err) {
+            expect(err.message).toBe('PostgreSQL configuration: password missing.')
+            throw err
+          }
+        }).toThrowError(errors.ConfigurationError)
+      })
+    })
 
-        describe('without host and port', function() {
-            it('should load default parameters', function() {
-                  let conn = new PostgreSQLConnectionInfo({
-                      user: 'dbuser',
-                      password: 'azerty',
-                      database: 'mydb'
-                  });
+    describe('without database', function () {
+      it('should throw a ConfigurationError', function () {
+        expect(function () {
+          try {
+            let conn = new PostgreSQLConnectionInfo({
+              user: 'dbuser',
+              password: 'azerty'
+            })
+            conn.test()
+          } catch (err) {
+            expect(err.message).toBe('PostgreSQL configuration: database missing.')
+            throw err
+          }
+        }).toThrowError(errors.ConfigurationError)
+      })
+    })
 
-                  expect(conn.host).toBe('localhost');
-                  expect(conn.port).toBe(3211);
-            });
-        });
-    });
+    describe('without host and port', function () {
+      it('should load default parameters', function () {
+        let conn = new PostgreSQLConnectionInfo({
+          user: 'dbuser',
+          password: 'azerty',
+          database: 'mydb'
+        })
 
-    describe('identifier', function() {
-        it('should be generated with connection parameters', function() {
-            let conn1 = new PostgreSQLConnectionInfo({
-                user: 'dbuser',
-                password: 'azerty',
-                database: 'mydb'
-            });
-            let identifier1 = conn1.identifier;
-            expect(identifier1).toBe('default://dbuser@localhost:3211/mydb');
+        expect(conn.host).toBe('localhost')
+        expect(conn.port).toBe(3211)
+      })
+    })
+  })
 
-            let conn2 = new PostgreSQLConnectionInfo({
-                user: 'dbuser',
-                password: 'azerty',
-                database: 'mydb',
-                host: 'pg.rduk.fr'
-            }, 'pg');
-            let identifier2 = conn2.identifier;
-            expect(identifier2).toBe('pg://dbuser@pg.rduk.fr:3211/mydb');
-        });
-    });
-});
+  describe('identifier', function () {
+    it('should be generated with connection parameters', function () {
+      let conn1 = new PostgreSQLConnectionInfo({
+        user: 'dbuser',
+        password: 'azerty',
+        database: 'mydb'
+      })
+      let identifier1 = conn1.identifier
+      expect(identifier1).toBe('default://dbuser@localhost:3211/mydb')
+
+      let conn2 = new PostgreSQLConnectionInfo({
+        user: 'dbuser',
+        password: 'azerty',
+        database: 'mydb',
+        host: 'pg.rduk.fr'
+      }, 'pg')
+      let identifier2 = conn2.identifier
+      expect(identifier2).toBe('pg://dbuser@pg.rduk.fr:3211/mydb')
+    })
+  })
+})

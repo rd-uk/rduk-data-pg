@@ -1,0 +1,16 @@
+---
+connections:
+  -
+    name: conntest
+    user: dbuser
+    password: dbpassword
+    database: dbname;
+data:
+  default: pg
+  providers:
+    -
+      name: pg
+      type: ~/lib
+      connection: conntest
+  query:
+    provider: ~/lib/queryProvider
