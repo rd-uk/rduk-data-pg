@@ -24,26 +24,13 @@
 
 'use strict'
 
-const data = require('@rduk/data')
-const DefaultQueryProvider = require('@rduk/data/lib/query/default')
-const PostgreSQLExpressionTranslator = require('./translator')
-
-class PostgreSQLQueryProvider extends DefaultQueryProvider {
-  constructor (ExpressionVisitor) {
-    super(ExpressionVisitor, PostgreSQLExpressionTranslator)
+class PoolMock {
+  query (command, parameters) {
+    return Promise.resolve({rows: []})
   }
-  execute (expression, context) {
-    let command = this.getCommand(expression, context)
-    let parameters = []
-
-    let index = 1
-    command = command.replace(/\?<([^>]+)>/gi, function (result, match) {
-      parameters.push(context[match])
-      return '$' + index++
-    })
-
-    return data.getInstance().execute(command, parameters)
+  release () {
+    return true
   }
 }
 
-module.exports = PostgreSQLQueryProvider
+module.exports = PoolMock
