@@ -1,6 +1,6 @@
 {
   "name": "@rduk/data-pg",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "PostgreSQL Data Provider implementation for rduk-data",
   "engines": {
     "node": ">=6.4.0"
@@ -35,7 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "@rduk/configuration": "2.1.1",
-    "@rduk/data": "0.1.3",
+    "@rduk/data": "0.2.0",
     "@rduk/errors": "1.3.0"
   },
   "devDependencies": {
