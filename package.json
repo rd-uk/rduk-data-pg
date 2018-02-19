@@ -43,6 +43,6 @@
     "istanbul": "0.4.5",
     "jasmine": "2.9.0",
     "pg": "7.4.1",
-    "standard": "10.0.3"
+    "standard": "11.0.0"
   }
 }
