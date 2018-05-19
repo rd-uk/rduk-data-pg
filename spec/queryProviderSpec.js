@@ -34,7 +34,7 @@ describe('insert stmt generation', function () {
     const ObjectLiteralExpression = require('@rduk/expression/lib/parser/expression/object')
     const PropertyExpression = require('@rduk/expression/lib/parser/expression/property')
     const SourceExpression = require('@rduk/data/lib/expression/source')
-    const InsertExpression = require('@rduk/data/lib/sql/expression/insert')
+    const InsertExpression = require('@rduk/data/lib/expression/insert')
 
     const Visitor = require('@rduk/data/lib/sql/visitor/expression')
     const QueryProvider = require('../lib/queryProvider')
