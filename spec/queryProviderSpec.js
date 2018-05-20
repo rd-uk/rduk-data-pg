@@ -26,19 +26,22 @@
 
 'use strict'
 
+const BinaryExpression = require('@rduk/expression/lib/parser/expression/binary')
+const FieldExpression = require('@rduk/expression/lib/parser/expression/field')
+const LambdaExpression = require('@rduk/expression/lib/parser/expression/lambda')
+const NameExpression = require('@rduk/expression/lib/parser/expression/name')
+const ObjectLiteralExpression = require('@rduk/expression/lib/parser/expression/object')
+const PropertyExpression = require('@rduk/expression/lib/parser/expression/property')
+const SourceExpression = require('@rduk/data/lib/expression/source')
+const InsertExpression = require('@rduk/data/lib/expression/insert')
+const UpdateExpression = require('@rduk/data/lib/expression/update')
+const TokenType = require('@rduk/expression/lib/token/type')
+
+const Visitor = require('@rduk/data/lib/sql/visitor/expression')
+const QueryProvider = require('../lib/queryProvider')
+
 describe('insert stmt generation', function () {
   it('should success', function (done) {
-    const FieldExpression = require('@rduk/expression/lib/parser/expression/field')
-    const LambdaExpression = require('@rduk/expression/lib/parser/expression/lambda')
-    const NameExpression = require('@rduk/expression/lib/parser/expression/name')
-    const ObjectLiteralExpression = require('@rduk/expression/lib/parser/expression/object')
-    const PropertyExpression = require('@rduk/expression/lib/parser/expression/property')
-    const SourceExpression = require('@rduk/data/lib/expression/source')
-    const InsertExpression = require('@rduk/data/lib/expression/insert')
-
-    const Visitor = require('@rduk/data/lib/sql/visitor/expression')
-    const QueryProvider = require('../lib/queryProvider')
-
     const provider = new QueryProvider(Visitor)
 
     let expression = new InsertExpression(new SourceExpression('users'))
@@ -57,6 +60,38 @@ describe('insert stmt generation', function () {
       email: 'dummy@mail.test',
       username: 'dummy',
       password: '123456'
+    }).catch(err => {
+      expect(err).toBeDefined()
+      expect(err.message).toBeDefined('connect ECONNREFUSED 127.0.0.1:3211')
+      done()
+    })
+  })
+})
+
+describe('update stmt generation', function () {
+  it('should success', function (done) {
+    const provider = new QueryProvider(Visitor)
+
+    let expression = new UpdateExpression(new SourceExpression('users'))
+    let obj = new ObjectLiteralExpression([
+      new FieldExpression('email', new PropertyExpression(new NameExpression('this'), 'email'))
+    ])
+    let assignment = new LambdaExpression(obj, [])
+    let binary = new BinaryExpression(
+            new PropertyExpression(new NameExpression('user'), 'id'),
+            new PropertyExpression(new NameExpression('this'), 'id'),
+            TokenType.EQEQEQ
+        )
+    let where = new LambdaExpression(binary, [new NameExpression('user')])
+    expression.where = where
+    expression.assignments.push(assignment)
+
+    let command = provider.getCommand(expression)
+    expect(command).toBe('UPDATE users AS t0 SET email = ?<email> WHERE (t0.id = ?<id>) RETURNING *')
+
+    provider.execute(expression, {
+      id: 1,
+      email: 'dummy@mail.test'
     }).catch(err => {
       expect(err).toBeDefined()
       expect(err.message).toBeDefined('connect ECONNREFUSED 127.0.0.1:3211')
