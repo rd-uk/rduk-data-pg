@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.1.8 - 2018-05-20
+### Changed
+- update `@rduk/data` to latest version ([0.4.1](https://github.com/rd-uk/rduk-data/releases/tag/v0.4.1))
+- update `@rduk/configuration` to latest version ([2.2.0](https://github.com/rd-uk/rduk-configuration/releases/tag/2.2.0))
+
 ## 0.1.7 - 2018-05-20
 ### Changed
 - update `@rduk/data` to latest version ([0.4.0](https://github.com/rd-uk/rduk-data/releases/tag/v0.4.0))
