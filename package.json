@@ -1,6 +1,6 @@
 {
   "name": "@rduk/data-pg",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "PostgreSQL Data Provider implementation for rduk-data",
   "engines": {
     "node": ">=6.4.0"
@@ -40,10 +40,10 @@
   },
   "devDependencies": {
     "@rduk/expression": "0.4.0",
-    "coveralls": "3.0.0",
+    "coveralls": "3.0.1",
     "istanbul": "0.4.5",
-    "jasmine": "2.9.0",
-    "pg": "7.4.1",
-    "standard": "10.0.3"
+    "jasmine": "3.1.0",
+    "pg": "7.4.3",
+    "standard": "11.0.1"
   }
 }

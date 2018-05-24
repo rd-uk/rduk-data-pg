@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
- /* eslint-env jasmine */
+/* eslint-env jasmine */
 
 'use strict'
 
@@ -78,10 +78,10 @@ describe('update stmt generation', function () {
     ])
     let assignment = new LambdaExpression(obj, [])
     let binary = new BinaryExpression(
-            new PropertyExpression(new NameExpression('user'), 'id'),
-            new PropertyExpression(new NameExpression('this'), 'id'),
-            TokenType.EQEQEQ
-        )
+      new PropertyExpression(new NameExpression('user'), 'id'),
+      new PropertyExpression(new NameExpression('this'), 'id'),
+      TokenType.EQEQEQ
+    )
     let where = new LambdaExpression(binary, [new NameExpression('user')])
     expression.where = where
     expression.assignments.push(assignment)
