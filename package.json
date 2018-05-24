@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "PostgreSQL Data Provider implementation for rduk-data",
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=8.11.1"
   },
   "main": "lib/index.js",
   "directories": {
@@ -11,9 +11,8 @@
   },
   "scripts": {
     "lint": "standard --fix",
-    "pretest": "npm run lint && cp ./spec/resources/config.yml ./config.yml",
-    "test": "istanbul cover jasmine --report cobertura",
-    "postest": "rm ./config.yml",
+    "pretest": "npm run lint",
+    "test": "RDUK_CONFIG_PATH=./spec/resources istanbul cover jasmine --report cobertura",
     "report": "istanbul report",
     "coveralls": "npm run report && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -34,11 +33,15 @@
   "author": "RDUK <tech@rduk.fr>",
   "license": "MIT",
   "dependencies": {
-    "@rduk/configuration": "2.2.0",
-    "@rduk/data": "0.4.1",
     "@rduk/errors": "1.3.0"
   },
+  "peerDependencies": {
+    "@rduk/configuration": "2.x",
+    "@rduk/data": "0.x"
+  },
   "devDependencies": {
+    "@rduk/configuration": "2.2.0",
+    "@rduk/data": "0.4.1",
     "@rduk/expression": "0.4.0",
     "coveralls": "3.0.1",
     "istanbul": "0.4.5",
