@@ -9,10 +9,15 @@ This module is an implementation of `@rduk/data/lib/base` for [PostgreSQL](https
 
 ## Installation
 
-[`pg`](https://www.npmjs.com/package/pg) is a peer dependency. Don't forget to add this module to your project.
+### Peer dependencies
+Don't forget to add this modules to your project:
+
+- [`@rduk/configuration`](https://github.com/rd-uk/rduk-configuration)
+- [`@rduk/data`](https://github.com/rd-uk/rduk-data)
+- [`pg`](https://www.npmjs.com/package/pg).
 
 ```sh
-npm i @rduk/data-pg pg
+npm i --save @rduk/configuration @rduk/data pg @rduk/data-pg
 ```
 
 ## Configuration
@@ -24,7 +29,7 @@ connections:
     name: conn1
     user: ${PG_USER}
     password: ${PG_PASSWORD}
-    database: ${PG_DB_NAME};
+    database: ${PG_DB_NAME}
 data:
   default: pg
   providers:
@@ -43,7 +48,7 @@ See [`@rduk/configuration`](https://github.com/rd-uk/rduk-configuration#readme) 
 
 ### Insert
 
-First, create a QueryProvider
+First, instantiate a new QueryProvider
 
 ```js
 const Visitor = require('@rduk/data/lib/sql/visitor/expression')
