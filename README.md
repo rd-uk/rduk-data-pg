@@ -14,15 +14,17 @@ Don't forget to add this modules to your project:
 
 - [`@rduk/configuration`](https://github.com/rd-uk/rduk-configuration)
 - [`@rduk/data`](https://github.com/rd-uk/rduk-data)
+- [`@rduk/errors`](https://github.com/rd-uk/rduk-errors)
 - [`pg`](https://www.npmjs.com/package/pg).
 
 ```sh
-npm i --save @rduk/configuration @rduk/data pg @rduk/data-pg
+npm i --save @rduk/configuration @rduk/data pg @rduk/data-pg @rduk/errors
 ```
 
 ## Configuration
 
 ```yaml
+# config.yml
 ---
 connections:
   -
@@ -60,7 +62,10 @@ const provider = new PostgreSQLQueryProvider(Visitor)
 Next, prepare an `InsertExpression`
 
 ```js
+const FieldExpression = require('@rduk/expression/lib/parser/expression/field')
 const InsertExpression = require('@rduk/data/lib/sql/expression/insert')
+const NameExpression = require('@rduk/expression/lib/parser/expression/name')
+const PropertyExpression = require('@rduk/expression/lib/parser/expression/property')
 const SourceExpression = require('@rduk/data/lib/expression/source')
 
 let expression = new InsertExpression(new SourceExpression('users'))
