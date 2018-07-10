@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@rduk/configuration": "2.2.0",
-    "@rduk/data": "0.4.2",
+    "@rduk/data": "0.4.3",
     "@rduk/expression": "0.5.1",
     "coveralls": "3.0.1",
     "istanbul": "0.4.5",
