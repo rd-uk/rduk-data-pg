@@ -45,7 +45,7 @@
     "@rduk/expression": "^0.5.2",
     "@rduk/logger": "^1.0.3",
     "@rduk/provider": "^3.1.2",
-    "coveralls": "3.0.1",
+    "coveralls": "3.0.7",
     "istanbul": "0.4.5",
     "jasmine": "3.1.0",
     "pg": "7.4.3",
